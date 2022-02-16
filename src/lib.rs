@@ -107,4 +107,10 @@ impl RetroAPI {
         return response;
     }
 
+    pub fn request_id_from_hash(&self, hash: String) -> String {
+        let url = String::from("dorequest.php");
+        let param = format!("?r=gameid&m={}", hash);
+        let response = self.get_request_with_param(url, param);
+        return response;
+    }
 }
