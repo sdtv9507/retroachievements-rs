@@ -107,10 +107,11 @@ impl RetroAPI {
         return response;
     }
 
-    pub fn request_id_from_hash(&self, hash: String) -> String {
-        let url = String::from("dorequest.php");
-        let param = format!("?r=gameid&m={}", hash);
-        let response = self.get_request_with_param(url, param);
+    #[tokio::main]
+    pub async fn request_id_from_hash(&self, hash: String) -> String {
+        let url = format!("https://retroachievements.org/dorequest.php?r=gameid&m={}", hash);
+        let result = reqwest::get(url).await.unwrap();
+        let response = result.text().await.unwrap();
         return response;
     }
 }
