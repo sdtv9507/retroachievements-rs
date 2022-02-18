@@ -13,7 +13,7 @@ impl RetroAPI {
             user,
             key,
             base: String::from("https://retroachievements.org/API/"),
-            image: String::from("https://i.retroachievements.org"),
+            image: String::from("http://i.retroachievements.org"),
         }
     }
 
@@ -40,6 +40,7 @@ impl RetroAPI {
             "{}{}",
             self.image, url
         );
+        println!("{}", url);
         let result = reqwest::get(url).await.unwrap();
         return result.text().await.unwrap();
     }
