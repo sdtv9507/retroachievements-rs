@@ -4,6 +4,7 @@ pub struct RetroAPI {
     user: String,
     key: String,
     base: String,
+    image: String,
 }
 
 impl RetroAPI {
@@ -12,6 +13,7 @@ impl RetroAPI {
             user,
             key,
             base: String::from("https://retroachievements.org/API/"),
+            image: String::from("https://i.retroachievements.org"),
         }
     }
 
@@ -27,6 +29,16 @@ impl RetroAPI {
         let url = format!(
             "{}{}?z={}&y={}{}",
             self.base, url, self.user, self.key, param
+        );
+        let result = reqwest::get(url).await.unwrap();
+        return result.text().await.unwrap();
+    }
+
+    #[tokio::main]
+    pub async fn get_image(&self, url: String) -> String {
+        let url = format!(
+            "{}{}",
+            self.image, url
         );
         let result = reqwest::get(url).await.unwrap();
         return result.text().await.unwrap();

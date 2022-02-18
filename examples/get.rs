@@ -14,6 +14,9 @@ fn main() {
     response = retro.request_game(11246);
     println!("PSX Final Fantasy Tactics game data");
     println!("{}", response);
+    response = retro.request_game_extend(11246);
+    println!("PSX Final Fantasy Tactics extended game data");
+    println!("{}", response);
     response = retro.request_user_rank_score(String::from("sdtv9507"));
     println!("User rank score");
     println!("{}", response);
