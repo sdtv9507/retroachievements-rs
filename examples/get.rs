@@ -1,4 +1,5 @@
 use retroachievements_rs::RetroAPI;
+use std::io::Cursor;
 
 fn main() {
     let user = String::from("youruser");
@@ -8,9 +9,11 @@ fn main() {
     println!("Top Users");
     println!("{}", response);
     let image = String::from("/Images/019093.png");
-    response = retro.get_image(image);
+    let img = retro.get_image(image);
     println!("PSX Final Fantasy Tactics image");
-    println!("{}", response);
+    let mut file = std::fs::File::create("019093.png").expect("Error creating image file");
+    let mut content = Cursor::new(img);
+    std::io::copy(&mut content, &mut file).expect("error copying file");
     let hash = String::from("4af22b114a64db19e3e707b28ebb6e68");
     response = retro.request_id_from_hash(hash);
     println!("PSX Final Fantasy Tactics game id from its hash");

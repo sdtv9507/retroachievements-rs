@@ -35,14 +35,13 @@ impl RetroAPI {
     }
 
     #[tokio::main]
-    pub async fn get_image(&self, url: String) -> String {
+    pub async fn get_image(&self, url: String) -> bytes::Bytes {
         let url = format!(
             "{}{}",
             self.image, url
         );
-        println!("{}", url);
         let result = reqwest::get(url).await.unwrap();
-        return result.text().await.unwrap();
+        return result.bytes().await.unwrap();
     }
 
     pub fn request_top_users(&self) -> String {
