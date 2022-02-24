@@ -91,6 +91,13 @@ impl RetroAPI {
         return response;
     }
 
+    pub fn request_user_progress(&self, user: String, game: i32) -> String {
+        let url = String::from("API_GetUserProgress.php");
+        let progress = format!("&u={}&i={}", user, game);
+        let response = self.get_request_with_param(url, progress);
+        return response;
+    }
+
     pub fn request_recently_played(&self, user: String, count: i32, offset: i32) -> String {
         let url = String::from("API_GetUserRecentlyPlayedGames.php");
         let param = format!("&u={}&c={}&o={}", user, count, offset);
